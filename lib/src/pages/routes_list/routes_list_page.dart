@@ -9,7 +9,7 @@ class RoutesListPage extends StatefulWidget {
 
 class _RoutesListPageState extends State<RoutesListPage> {
 
-  final _url = 'https://oh-prolog.herokuapp.com/';
+  final _url = 'https://oh-prolog.herokuapp.com';
 
   @override
   Widget build(BuildContext context) {
@@ -24,20 +24,13 @@ class _RoutesListPageState extends State<RoutesListPage> {
   Widget _getListItems() {
     return FutureBuilder(
       future: _getRoutes(),
-      initialData: [],
+      initialData: ['Espere por favor...'],
       builder: (context, AsyncSnapshot<List> snapshot) {
         return ListView(
           children: _getItems(snapshot.data, context)
         );
       },
     );
-    //getRoutes();
-    /* return [
-      ListTile(
-        title: Text('Ruta'),
-        leading: Icon(Icons.directions_bus),
-      )
-    ]; */
   }
 
   Future<List> _getRoutes() async {
