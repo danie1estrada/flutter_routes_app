@@ -51,7 +51,9 @@ class _RoutesListPageState extends State<RoutesListPage> {
           Icons.keyboard_arrow_right,
           color: Colors.blue
         ),
-        onTap: () {},
+        onTap: () {
+          Navigator.pushNamed(context, 'routeInformation', arguments: route);
+        },
       ));
       items.add(Divider());
     });

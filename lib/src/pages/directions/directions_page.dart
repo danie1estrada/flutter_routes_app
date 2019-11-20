@@ -61,14 +61,6 @@ class _DirectionsPageState extends State<DirectionsPage> {
     );
   }
 
-  Widget _createBody() {
-    return Column(
-      children: <Widget>[
-        
-      ],
-    );
-  }
-
   Widget _originTF() {
     return TextFormField(
       decoration: InputDecoration(labelText: 'Lugar origen'),
@@ -98,19 +90,6 @@ class _DirectionsPageState extends State<DirectionsPage> {
         },
       )
     );
-  }
-
-  Widget _listView() {
-    final List<Widget> l = [];
-    for (var i = 0; i < 15; i++) {
-      l.add(ListTile(
-        title: Text('# $i'),
-        leading: Icon(Icons.directions_bus),
-      ));
-      l.add(Divider());
-    }
-
-    return ListView(children: l);
   }
 
   Future<List> _getAvailableRoutes() async {
