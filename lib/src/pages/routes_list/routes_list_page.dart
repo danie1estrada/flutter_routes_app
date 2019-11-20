@@ -15,33 +15,54 @@ class _RoutesListPageState extends State<RoutesListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Rutas'),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.search),
-            onPressed: () {},
-          )
-        ],
+        title: Text('Rutas')
       ),
-      body: ListView(
-        children: _getListItems(),
-      ),
+      body: _getListItems()
     );
   }
 
-  List<Widget> _getListItems() {
-    getRoutes();
-    return [
+  Widget _getListItems() {
+    return FutureBuilder(
+      future: _getRoutes(),
+      initialData: [],
+      builder: (context, AsyncSnapshot<List> snapshot) {
+        return ListView(
+          children: _getItems(snapshot.data, context)
+        );
+      },
+    );
+    //getRoutes();
+    /* return [
       ListTile(
         title: Text('Ruta'),
         leading: Icon(Icons.directions_bus),
       )
-    ];
+    ]; */
   }
 
-  getRoutes() async {
+  Future<List> _getRoutes() async {
     var response = await http.get('$_url/consult/routes');
     var decoded = json.decode(response.body);
-    print(decoded);
+    print(decoded['routes']);
+    return decoded['routes'];
+  }
+
+  List<Widget> _getItems(List data, BuildContext context) {
+    final List<Widget> items = [];
+
+    data.forEach((route) {
+      items.add(ListTile(
+        title: Text(route),
+        leading: Icon(Icons.directions_bus),
+        trailing: Icon(
+          Icons.keyboard_arrow_right,
+          color: Colors.blue
+        ),
+        onTap: () {},
+      ));
+      items.add(Divider());
+    });
+
+    return items;
   }
 }
